@@ -21,15 +21,17 @@ public class TerrainGenerator : MonoBehaviour
     {
         while (true)
         {
+            // Gets a random terrainBlock from array
             int randomIndex = Random.Range(0, terrainBlocks.Length);
             GameObject terrainBlock = terrainBlocks[randomIndex];
 
+            // Determines the position for a new block and instantiates it
             Vector3 blockPosition = new Vector3(blockCount * blockWidth, 0, 0);
             GameObject newBlock = Instantiate(terrainBlock, blockPosition, Quaternion.identity);
 
             blockCount++;
 
-            yield return new WaitForSeconds(generationDelay);
+            yield return new WaitForSeconds(2);
 
             if (playerTransform.position.x >= (blockCount - 1) * blockWidth + blockWidth)
             {
