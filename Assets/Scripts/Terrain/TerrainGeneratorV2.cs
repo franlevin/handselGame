@@ -7,20 +7,22 @@ public class TerrainGeneratorV2 : MonoBehaviour
     public GameObject[] terrainModules; // The array with every possible module.
     public TerrainModuleData Data;
 
-    private float minTerrainLength = Screen.width;
-    private float forwardTerrainLength = 0;
+    private float minTerrainLength = 100f;
+    private float fullLength;
+    private float lengthReached;
 
     // Start is called before the first frame update
     void Start()
     {
+        TerrainModule.TerrainModuleDestroyed += DecreaseFullLength;
         //StartTerrain();
-        Debug.Log("Screen width is" + minTerrainLength);
         //AddTerrain();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("FullLength es: " + fullLength);
         AddTerrain();
     }
 
@@ -29,23 +31,28 @@ public class TerrainGeneratorV2 : MonoBehaviour
         
     }
 
+    private void DecreaseFullLength (float length)
+    {
+        fullLength -= length;
+        Debug.Log("Decrece la length");
+    }
+
     private void AddTerrain()
     {
-        
-
-        if (forwardTerrainLength <= minTerrainLength)
+        if (fullLength <= minTerrainLength)
         {
+            Debug.Log("Arma nuevo terrain");
             int randomIndex = Random.Range(0, terrainModules.Length);
             GameObject terrainModule = terrainModules[randomIndex];
 
             // Determines the position for a new block and instantiates it
-            Vector3 blockPosition = new Vector3(forwardTerrainLength, 0, 0);
+            Vector3 blockPosition = new Vector3(lengthReached, 0, 0);
             GameObject newBlock = Instantiate(terrainModule, blockPosition, Quaternion.identity);
-            forwardTerrainLength += terrainModule.GetComponent<TerrainModule>().data.length;
+            fullLength += terrainModule.GetComponent<TerrainModule>().data.length;
+            lengthReached += terrainModule.GetComponent<TerrainModule>().data.length;
         }
 
         //Debug.Log(terrainModule.GetComponent<TerrainModule>().GetLength());
-        Debug.Log("Prueba en terrain generator: " + forwardTerrainLength);
 
 
     }

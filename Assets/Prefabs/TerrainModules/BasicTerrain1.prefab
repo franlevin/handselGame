@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5875892226426618455}
   - component: {fileID: 5875892226426618454}
-  - component: {fileID: 5875892226426618452}
-  - component: {fileID: -5439393771855865816}
+  - component: {fileID: 4376477277584671414}
+  - component: {fileID: 1875383715348549362}
   m_Layer: 0
   m_Name: BasicTerrain1
   m_TagString: Untagged
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &5875892226426618452
+--- !u!61 &4376477277584671414
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,7 +112,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-5439393771855865816
+--- !u!114 &1875383715348549362
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,4 +125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 37d7febd18f08094e8ebe473a40ff26a, type: 2}
-  length: 0
+  length: 21.42703
+  height: 0
+  destroyDistance: 20
+  mainFloor: {fileID: 0}
+  Player: {fileID: 0}
