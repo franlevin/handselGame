@@ -13,6 +13,7 @@ public class TerrainModule : MonoBehaviour
     {
         length = data.length;
         Debug.Log("El length es:" + length);
+        //StartCoroutine(SelfDestruct());
     }
 
     // Update is called once per frame
@@ -26,8 +27,22 @@ public class TerrainModule : MonoBehaviour
         return length;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            StartCoroutine(SelfDestruct());
+        }
+    }
+
     private void OnDisable()
     {
-        IEnumerator
+        //IEnumerator
+    }
+
+    IEnumerator SelfDestruct()
+    {
+        yield return new WaitForSeconds(4f);
+        Destroy(gameObject);
     }
 }
