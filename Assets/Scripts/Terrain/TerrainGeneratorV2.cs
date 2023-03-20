@@ -14,15 +14,14 @@ public class TerrainGeneratorV2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        // Subscription to static event for decreasing length of a destroyed module in full spawned length.
         TerrainModule.TerrainModuleDestroyed += DecreaseFullLength;
-        //StartTerrain();
-        //AddTerrain();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("FullLength es: " + fullLength);
         AddTerrain();
     }
 
@@ -46,14 +45,12 @@ public class TerrainGeneratorV2 : MonoBehaviour
             GameObject terrainModule = terrainModules[randomIndex];
 
             // Determines the position for a new block and instantiates it
-            Vector3 blockPosition = new Vector3(lengthReached, 0, 0);
+            Vector3 blockPosition = new Vector3(lengthReached, -15f, 0);
             GameObject newBlock = Instantiate(terrainModule, blockPosition, Quaternion.identity);
+
+            // Adds spawned block's length to "fullLength" & "lengthReached"
             fullLength += terrainModule.GetComponent<TerrainModule>().data.length;
             lengthReached += terrainModule.GetComponent<TerrainModule>().data.length;
         }
-
-        //Debug.Log(terrainModule.GetComponent<TerrainModule>().GetLength());
-
-
     }
 }
