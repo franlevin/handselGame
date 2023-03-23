@@ -13,14 +13,15 @@ public class PlayerControllerV2 : MonoBehaviour
 
     //ALL initial values need to be adjusted
 
-    public float baseSpeed = 2f;
+    public const float baseSpeed = 2f;
     public float dashSpeed = 6f;
+    public float playerSpeed;
 
     //For jump
     public float baseJumpHeight = 10f;
     private float minDistanceToGroundForJump = 1f;
     private float jumpCharge = 0f;
-    public float maxJumpCharge = 200f;
+    public float maxJumpCharge = 99999f;
     private float jumpPower = 20f;
 
     //For dash
@@ -40,9 +41,14 @@ public class PlayerControllerV2 : MonoBehaviour
         powerUps.Add("dash", false);
     }
 
+    private void Update()
+    {
+        
+    }
 
     void FixedUpdate()
     {
+        Debug.Log("Is player grounded? Rta: " + IsGrounded());  
         DashControl();
         JumpControl();
 
@@ -56,17 +62,18 @@ public class PlayerControllerV2 : MonoBehaviour
     //Basic forward movement
     private void moveForward(float speed)
     {
-        if (jumpCharge != 0)
-        {
-            if (Input.GetKeyDown(jumpKey)) //if is charging a jump, player must not move forward
+        //if (jumpCharge != 0)
+        //{
+            if (Input.GetKey(jumpKey)) //if is charging a jump, player must not move forward
             {
                 speed = 0;
             }
-            else//if jumping, advance slower?
+            /*else//if jumping, advance slower? **Fran** Lo cambié a baseSpeed, antes era 1 y ralentizaba al player indefinidamente en cada salto
             {
-                speed = 1;
-            }
-        }
+                speed = baseSpeed;
+            }*/
+        //}
+
         else if (dashCounter > 0)
         {
             speed = dashSpeed;
@@ -81,6 +88,9 @@ public class PlayerControllerV2 : MonoBehaviour
     {
         if (IsGrounded())
         {
+
+            
+
             if (Input.GetKeyDown(jumpKey))  //inicia carga de salto, resetea a 0
             {
                 jumpCharge = 0;
@@ -96,7 +106,8 @@ public class PlayerControllerV2 : MonoBehaviour
                 {
                     jumpCharge = maxJumpCharge; //limita la potencia del salto a la max carga permitida
                 }
-                SimpleJump();                   //salta
+                SimpleJump();                  //salta
+                //jumpCharge = 0;
             }
         }
 
@@ -115,8 +126,9 @@ public class PlayerControllerV2 : MonoBehaviour
     }
     private void SimpleJump()
     {
+        
         Vector2 pos = transform.position;
-        pos.y += jumpPower * Time.fixedDeltaTime;
+        pos.y += (jumpPower * jumpCharge) * Time.fixedDeltaTime;
         transform.position = pos;
     }
 
