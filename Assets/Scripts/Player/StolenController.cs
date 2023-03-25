@@ -98,4 +98,8 @@ public class StolenController : MonoBehaviour
         return Physics2D.Raycast(groundControlPos, Vector2.down , minDistanceToGroundForJump); //la mindistance deberia cubrir como para iniciar la accion correctamente
     }
 
+    public float GetSpeed()
+    {
+        return playerSpeed;
+    }
 }
