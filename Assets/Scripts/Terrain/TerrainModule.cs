@@ -8,7 +8,7 @@ public class TerrainModule : MonoBehaviour
     [SerializeField] public TerrainModuleData data;
     [SerializeField] private float length;
     [SerializeField] private float height;
-    [SerializeField] private float destroyDistance = 4444f;
+    private float destroyDistance = 100f;
     [SerializeField] private GameObject mainFloor;          // Lowest floor on module for player collision
     [SerializeField] GameObject Player;
 
@@ -35,7 +35,7 @@ public class TerrainModule : MonoBehaviour
 
     private void CheckDestruction(GameObject player)
     {
-        if (IsPlayerFarAway(player.transform.position.x))
+        if (IsPlayerFarAway(player.transform.localPosition))
         {
             TerrainModuleDestroyed?.Invoke(length);
             Destroy(gameObject);
@@ -43,9 +43,15 @@ public class TerrainModule : MonoBehaviour
         }
     }
 
-    private bool IsPlayerFarAway (float playerX)
+    private bool IsPlayerFarAway (Vector2 playerX)
     {
-        return ((playerX - transform.position.x) > destroyDistance);
+        //Debug.Log("Player x is: " + (playerX) + " and Module x is: " + transform.localPosition.x + " , so Player x - Module x is: " + (playerX - transform.localPosition.x));
+
+        float distance = Vector2.Distance(playerX, transform.localPosition);
+
+        Debug.Log("Distance es: " + distance + ", Player x is: " + (playerX) + " and Module x is: " + transform.localPosition.x + ", Retorna: " + (distance > destroyDistance && playerX.x > transform.localPosition.x)+ "Distance es mayor a destroyDistance: " + (distance > destroyDistance));
+
+        return (distance > destroyDistance && playerX.x > transform.localPosition.x);
     }
 }
 

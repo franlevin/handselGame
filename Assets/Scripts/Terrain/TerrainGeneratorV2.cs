@@ -7,7 +7,7 @@ public class TerrainGeneratorV2 : MonoBehaviour
     public GameObject[] terrainModules; // The array with every possible module.
     public TerrainModuleData Data;
 
-    private float minTerrainLength = 100f;
+    private float minTerrainLength = 300f;
     private float fullLength;
     private float lengthReached;
 

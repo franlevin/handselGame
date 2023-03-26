@@ -192,10 +192,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1741873945, guid: 709523e03498930468ae176057d1302f, type: 3}
-      propertyPath: playerSpeed
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 300026290305766533, guid: 709523e03498930468ae176057d1302f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -399,7 +395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2991497015723214088, guid: b374b96f7b511ff4299c169886b737c5, type: 3}
       propertyPath: orthographic size
-      value: 19.663761
+      value: 30.203537
       objectReference: {fileID: 0}
     - target: {fileID: 2991497015723214091, guid: b374b96f7b511ff4299c169886b737c5, type: 3}
       propertyPath: m_RootOrder
@@ -407,11 +403,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2991497015723214091, guid: b374b96f7b511ff4299c169886b737c5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 27.36
+      value: 51.9
       objectReference: {fileID: 0}
     - target: {fileID: 2991497015723214091, guid: b374b96f7b511ff4299c169886b737c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.8
+      value: 22.4
       objectReference: {fileID: 0}
     - target: {fileID: 2991497015723214091, guid: b374b96f7b511ff4299c169886b737c5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -469,3 +465,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameObject: {fileID: 1166726446}
+  followSpeed: 5

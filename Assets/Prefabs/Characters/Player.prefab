@@ -175,5 +175,5 @@ MonoBehaviour:
   maxHoldJumpTime: 0.4
   holdJumpTimer: 0
   jumpGroundThreshold: 1
-  playerSpeed: 15
+  playerSpeed: 30
   playerHeight: 0
