@@ -82,11 +82,11 @@ public class StolenController : MonoBehaviour
                 velocity.y += gravity * Time.fixedDeltaTime;
             }
 
-            if (pos.y <= groundHeight)
+            /*if (pos.y <= groundHeight)
             {
                 pos.y = groundHeight;
                 //isGrounded = true;
-            }
+            }*/
         }
 
 

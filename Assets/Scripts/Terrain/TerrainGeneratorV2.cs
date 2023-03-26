@@ -45,7 +45,7 @@ public class TerrainGeneratorV2 : MonoBehaviour
             GameObject terrainModule = terrainModules[randomIndex];
 
             // Determines the position for a new block and instantiates it
-            float floorPosition = ((terrainModule.transform.localScale.y) / 2) * -1;
+            float floorPosition = (((terrainModule.transform.localScale.y) / 2)) * -1;
             Vector3 blockPosition = new Vector3(lengthReached, floorPosition, 0);
             Instantiate(terrainModule, blockPosition, Quaternion.identity);
 

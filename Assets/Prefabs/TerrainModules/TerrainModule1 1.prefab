@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4376477277584671414}
   - component: {fileID: 1875383715348549362}
   m_Layer: 0
-  m_Name: BasicTerrain1
+  m_Name: TerrainModule1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5875892226426618449}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0083, y: -3.5396, z: 0}
-  m_LocalScale: {x: 21.427029, y: 2.8855362, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 21.427029, y: 12.66029, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -127,6 +127,5 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 37d7febd18f08094e8ebe473a40ff26a, type: 2}
   length: 21.42703
   height: 0
-  destroyDistance: 20
   mainFloor: {fileID: 0}
   Player: {fileID: 0}
