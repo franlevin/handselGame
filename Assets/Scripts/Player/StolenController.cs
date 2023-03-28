@@ -34,11 +34,11 @@ public class StolenController : MonoBehaviour
         Vector2 pos = transform.position;
         float groundDistance = Mathf.Abs(pos.y - groundHeight);
 
-        Debug.Log("Está grounded? Rta: " + IsGrounded());
+        //Debug.Log("Está grounded? Rta: " + IsGrounded());
 
         if (IsGrounded() || groundDistance <= jumpGroundThreshold)
         {
-            Debug.Log("Está grounded y ground distance menor a threshold");
+            //Debug.Log("Está grounded y ground distance menor a threshold");
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 //isGrounded = false;
@@ -59,7 +59,7 @@ public class StolenController : MonoBehaviour
 
         Debug.DrawRay(groundControlPos, rayDirection, Color.red, 10.0f);
 
-        Debug.Log("Groundcontrolpos es: " + groundControlPos + "y transform.localScale.y es: " + transform.localScale.y);
+        //Debug.Log("Groundcontrolpos es: " + groundControlPos + "y transform.localScale.y es: " + transform.localScale.y);
     }
 
     private void FixedUpdate()

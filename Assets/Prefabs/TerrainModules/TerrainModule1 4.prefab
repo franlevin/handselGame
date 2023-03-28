@@ -129,3 +129,4 @@ MonoBehaviour:
   height: 0
   mainFloor: {fileID: 0}
   Player: {fileID: 0}
+  moduleType: 1

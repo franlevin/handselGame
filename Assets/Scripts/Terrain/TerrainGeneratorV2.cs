@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static TerrainModule;
 
 public class TerrainGeneratorV2 : MonoBehaviour
 {
@@ -11,12 +13,16 @@ public class TerrainGeneratorV2 : MonoBehaviour
     private float fullLength;
     private float lengthReached;
 
+    //private ModuleType lastModuleType;
+    TerrainModule.ModuleType lastModuleType;
+
     // Start is called before the first frame update
     void Start()
     {
         
         // Subscription to static event for decreasing length of a destroyed module in full spawned length.
         TerrainModule.TerrainModuleDestroyed += DecreaseFullLength;
+        lastModuleType = TerrainModule.ModuleType.Void;
     }
 
     // Update is called once per frame
@@ -33,19 +39,19 @@ public class TerrainGeneratorV2 : MonoBehaviour
     private void DecreaseFullLength (float length)
     {
         fullLength -= length;
-        Debug.Log("Decrece la length");
+        //Debug.Log("Decrece la length");
     }
 
     private void AddTerrain()
     {
-        if (fullLength <= minTerrainLength)
+        if (fullLength < minTerrainLength)
         {
-            Debug.Log("Arma nuevo terrain");
-            int randomIndex = Random.Range(0, terrainModules.Length);
-            GameObject terrainModule = terrainModules[randomIndex];
+
+            GameObject terrainModule = CreateModule();
+            lastModuleType = terrainModule.GetComponent<TerrainModule>().moduleType;
 
             // Determines the position for a new block and instantiates it
-            float floorPosition = (((terrainModule.transform.localScale.y) / 2)) * -1;
+            float floorPosition = ((terrainModule.transform.localScale.y) / 2) * -1;
             Vector3 blockPosition = new Vector3(lengthReached, floorPosition, 0);
             Instantiate(terrainModule, blockPosition, Quaternion.identity);
 
@@ -53,5 +59,17 @@ public class TerrainGeneratorV2 : MonoBehaviour
             fullLength += terrainModule.GetComponent<TerrainModule>().data.length;
             lengthReached += terrainModule.GetComponent<TerrainModule>().data.length;
         }
+    }
+
+    private GameObject CreateModule()
+    {
+        // New random TerrainModule from array
+        GameObject module;
+        int randomIndex = Random.Range(0, terrainModules.Length);
+        module = terrainModules[randomIndex];
+        TerrainModule.ModuleType moduleType = module.GetComponent<TerrainModule>().moduleType;
+        bool willRepeatVoid = (lastModuleType == TerrainModule.ModuleType.Void && moduleType == TerrainModule.ModuleType.Void);
+
+        if (!willRepeatVoid) return module; else return CreateModule();
     }
 }
