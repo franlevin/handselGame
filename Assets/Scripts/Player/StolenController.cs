@@ -87,15 +87,26 @@ public class StolenController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        JumpControl();
+        MovementControl();
+        if (!isDashing)
+        {
+            JumpControl();
+        }
         DashControl();
 
+    }
+
+    private void MovementControl()
+    {
+        Vector2 pos = transform.position;
+        pos += Vector2.right * Time.deltaTime * playerSpeed;
+        transform.position = pos;
     }
 
     private void JumpControl()
     {
         Vector2 pos = transform.position;
-        pos += Vector2.right * Time.deltaTime * playerSpeed;
+        //pos += Vector2.right * Time.deltaTime * playerSpeed;
 
         if (isHoldingJump || !IsGrounded())        //(!IsGrounded())
         {
@@ -107,7 +118,7 @@ public class StolenController : MonoBehaviour
             }
 
             pos.y += velocity.y * Time.fixedDeltaTime;
-            if (!isHoldingJump)
+            if (!isHoldingJump && !isDashing)
             {
                 velocity.y += gravity * Time.fixedDeltaTime;
             }

@@ -12,6 +12,7 @@ public class TerrainGeneratorV2 : MonoBehaviour
     private float minTerrainLength = 300f;
     private float fullLength;
     private float lengthReached;
+    private int modulesCreated; 
 
     //private ModuleType lastModuleType;
     TerrainModule.ModuleType lastModuleType;
@@ -29,6 +30,7 @@ public class TerrainGeneratorV2 : MonoBehaviour
     void Update()
     {
         AddTerrain();
+        Debug.Log("modulesCreated is: " + modulesCreated);
     }
 
     private void StartTerrain()
@@ -48,6 +50,7 @@ public class TerrainGeneratorV2 : MonoBehaviour
         {
 
             GameObject terrainModule = CreateModule();
+            modulesCreated++;
             lastModuleType = terrainModule.GetComponent<TerrainModule>().moduleType;
 
             // Determines the position for a new block and instantiates it
@@ -69,7 +72,8 @@ public class TerrainGeneratorV2 : MonoBehaviour
         module = terrainModules[randomIndex];
         TerrainModule.ModuleType moduleType = module.GetComponent<TerrainModule>().moduleType;
         bool willRepeatVoid = (lastModuleType == TerrainModule.ModuleType.Void && moduleType == TerrainModule.ModuleType.Void);
+        bool willSpawnVoidInStartingLane = (modulesCreated < 10 && moduleType == TerrainModule.ModuleType.Void);
 
-        if (!willRepeatVoid) return module; else return CreateModule();
+        if (!willRepeatVoid && !willSpawnVoidInStartingLane ) return module; else return CreateModule();
     }
 }
