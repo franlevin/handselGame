@@ -108,7 +108,7 @@ public class StolenController : MonoBehaviour
         Vector2 pos = transform.position;
         //pos += Vector2.right * Time.deltaTime * playerSpeed;
 
-        if (isHoldingJump || !IsGrounded())        //(!IsGrounded())
+        if (isHoldingJump || !IsGrounded())       
         {
 
             holdJumpTimer += Time.fixedDeltaTime;
@@ -118,7 +118,7 @@ public class StolenController : MonoBehaviour
             }
 
             pos.y += velocity.y * Time.fixedDeltaTime;
-            if (!isHoldingJump && !isDashing)
+            if (!isHoldingJump)
             {
                 velocity.y += gravity * Time.fixedDeltaTime;
             }
