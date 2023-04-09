@@ -17,11 +17,14 @@ public class TerrainGeneratorV2 : MonoBehaviour
     private int modulesCreated;
     private int modulesUntilElevator = 15;
 
-    //private ModuleType lastModuleType;
-    TerrainModule.ModuleType lastModuleType;
+    private TerrainModule.ModuleType lastModuleType;
     
     // Static Event that invokes when an elevator spawns
     public static event Action ElevatorSpawned;
+
+    // For destroying generator after elevator spawns
+    private bool reachedEnd = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +40,7 @@ public class TerrainGeneratorV2 : MonoBehaviour
     {
         AddTerrain();
         Debug.Log("modulesCreated is: " + modulesCreated);
+        if (reachedEnd) { Destroy(gameObject); }
     }
 
     private void StartTerrain()
@@ -80,14 +84,14 @@ public class TerrainGeneratorV2 : MonoBehaviour
             int randomIndex = UnityEngine.Random.Range(0, terrainModules.Length);
             module = terrainModules[randomIndex];
             moduleType = module.GetComponent<TerrainModule>().moduleType;
-
         }
 
-        else
+        else // Spawns Elevator
         {
             int randomIndex = UnityEngine.Random.Range(0, elevatorModules.Length);
             module = elevatorModules[randomIndex];
             moduleType = TerrainModule.ModuleType.Normal;
+            reachedEnd = true;
         } 
 
         // New random TerrainModule from array
@@ -100,6 +104,11 @@ public class TerrainGeneratorV2 : MonoBehaviour
     private void OnDisable()
     {
         TerrainModule.TerrainModuleDestroyed -= DecreaseFullLength;
-        Destroy(gameObject);
+        //Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        TerrainModule.TerrainModuleDestroyed -= DecreaseFullLength;
     }
 }

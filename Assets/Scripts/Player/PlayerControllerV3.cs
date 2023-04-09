@@ -35,12 +35,26 @@ public class PlayerControllerV3 : MonoBehaviour
 
     //Input
     public KeyCode jumpKey = KeyCode.Space;
-    public KeyCode dashKey = KeyCode.D; 
+    public KeyCode dashKey = KeyCode.Q;
+    public KeyCode moveRightKey = KeyCode.D;
+    public KeyCode moveLeftKey = KeyCode.A;
+
+    // Movement Type
+    public enum MovementType // your custom enumeration
+    {
+        Standard,
+        PoweredUp,
+        Free
+    };
+
+    [SerializeField] public MovementType movementType;
 
     void Start()
     {
         playerHeight = transform.position.y;
         //groundControlPos = new Vector2(transform.position.x, transform.position.y / 2);
+
+        GameManager.ElevatorState += ActivateFreeMovement;
     }
 
     void Update()
@@ -87,6 +101,8 @@ public class PlayerControllerV3 : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
+        
         MovementControl();
         if (!isDashing)
         {
@@ -98,8 +114,39 @@ public class PlayerControllerV3 : MonoBehaviour
 
     private void MovementControl()
     {
+        switch (movementType)
+        {
+            case MovementType.Standard:
+                StandardMovement();
+                break;
+
+            case MovementType.PoweredUp:
+                PoweredUpMovement();
+                break;
+
+            case MovementType.Free:
+                FreeMovement();
+                break;
+        }
+    }
+
+    private void StandardMovement()
+    {
         Vector2 pos = transform.position;
         pos += Vector2.right * Time.deltaTime * playerSpeed;
+        transform.position = pos;
+    }
+
+    private void PoweredUpMovement()
+    {
+
+    }
+
+    private void FreeMovement()
+    {
+        Vector2 pos = transform.position;
+        if (Input.GetKey(moveRightKey)) { pos += Vector2.right * Time.deltaTime * playerSpeed; }
+        if (Input.GetKey(moveLeftKey)) { pos += Vector2.left * Time.deltaTime * playerSpeed; }
         transform.position = pos;
     }
 
@@ -138,6 +185,11 @@ public class PlayerControllerV3 : MonoBehaviour
         if (isDashing && dashTimer < dashMaxDuration) { dashTimer += Time.fixedDeltaTime; }
         else { isDashing = false; dashTimer = 0; playerSpeed = normalSpeed; }
     } 
+
+    private void ActivateFreeMovement()
+    {
+        movementType = MovementType.Free;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
