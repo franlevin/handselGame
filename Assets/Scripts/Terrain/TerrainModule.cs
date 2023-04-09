@@ -15,7 +15,8 @@ public class TerrainModule : MonoBehaviour
     public enum ModuleType // your custom enumeration
     {
         Normal,
-        Void
+        Void,
+        Elevator
     };
 
     [SerializeField] public ModuleType moduleType;

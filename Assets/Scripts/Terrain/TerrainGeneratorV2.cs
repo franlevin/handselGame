@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,16 +7,21 @@ using static TerrainModule;
 
 public class TerrainGeneratorV2 : MonoBehaviour
 {
-    public GameObject[] terrainModules; // The array with every possible module.
+    public GameObject[] terrainModules; // The array with every possible terrain module.
+    public GameObject[] elevatorModules; // The array with every possible elevator module.
     public TerrainModuleData Data;
 
     private float minTerrainLength = 300f;
     private float fullLength;
     private float lengthReached;
-    private int modulesCreated; 
+    private int modulesCreated;
+    private int modulesUntilElevator = 15;
 
     //private ModuleType lastModuleType;
     TerrainModule.ModuleType lastModuleType;
+    
+    // Static Event that invokes when an elevator spawns
+    public static event Action ElevatorSpawned;
 
     // Start is called before the first frame update
     void Start()
@@ -66,14 +72,34 @@ public class TerrainGeneratorV2 : MonoBehaviour
 
     private GameObject CreateModule()
     {
-        // New random TerrainModule from array
         GameObject module;
-        int randomIndex = Random.Range(0, terrainModules.Length);
-        module = terrainModules[randomIndex];
-        TerrainModule.ModuleType moduleType = module.GetComponent<TerrainModule>().moduleType;
+        TerrainModule.ModuleType moduleType;
+
+        if (modulesCreated < modulesUntilElevator)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, terrainModules.Length);
+            module = terrainModules[randomIndex];
+            moduleType = module.GetComponent<TerrainModule>().moduleType;
+
+        }
+
+        else
+        {
+            int randomIndex = UnityEngine.Random.Range(0, elevatorModules.Length);
+            module = elevatorModules[randomIndex];
+            moduleType = TerrainModule.ModuleType.Normal;
+        } 
+
+        // New random TerrainModule from array
         bool willRepeatVoid = (lastModuleType == TerrainModule.ModuleType.Void && moduleType == TerrainModule.ModuleType.Void);
         bool willSpawnVoidInStartingLane = (modulesCreated < 10 && moduleType == TerrainModule.ModuleType.Void);
 
         if (!willRepeatVoid && !willSpawnVoidInStartingLane ) return module; else return CreateModule();
+    }
+
+    private void OnDisable()
+    {
+        TerrainModule.TerrainModuleDestroyed -= DecreaseFullLength;
+        Destroy(gameObject);
     }
 }

@@ -237,6 +237,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6013485779895667999, guid: a20a83b4003cd8349a0b08fc165f5161, type: 3}
+      propertyPath: elevatorModules.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6013485779895667999, guid: a20a83b4003cd8349a0b08fc165f5161, type: 3}
       propertyPath: terrainModules.Array.data[0]
       value: 
       objectReference: {fileID: 5875892226426618449, guid: d3d2dd702e708494aa295bfabb97c458, type: 3}
@@ -256,6 +260,10 @@ PrefabInstance:
       propertyPath: terrainModules.Array.data[4]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6013485779895667999, guid: a20a83b4003cd8349a0b08fc165f5161, type: 3}
+      propertyPath: elevatorModules.Array.data[0]
+      value: 
+      objectReference: {fileID: 5875892226426618449, guid: 76ba6fe7d7c162e48bf42acf5ae5b3d2, type: 3}
     - target: {fileID: 6013485779895668064, guid: a20a83b4003cd8349a0b08fc165f5161, type: 3}
       propertyPath: m_RootOrder
       value: 4
