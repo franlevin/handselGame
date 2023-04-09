@@ -9,13 +9,13 @@ public class PlayerController : MonoBehaviour
     public float dashForce = 20.0f;
     public float dashDuration = 0.5f;
 
-    private Rigidbody2D rigidbody2D;
+    private Rigidbody2D rb2D;
     private float dashTime;
     private float dashStart;
 
     void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        rb2D = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            rb2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
 
         if (Input.GetButtonDown("Dash"))
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         if (dashTime > 0)
         {
             dashTime -= Time.deltaTime;
-            rigidbody2D.AddForce(Vector2.right * dashForce, ForceMode2D.Impulse);
+            rb2D.AddForce(Vector2.right * dashForce, ForceMode2D.Impulse);
         }
     }
 

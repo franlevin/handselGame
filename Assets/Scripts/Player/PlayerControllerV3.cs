@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
-public class StolenController : MonoBehaviour
+public class PlayerControllerV3 : MonoBehaviour
 {
     //Gravity
     public float gravity;
