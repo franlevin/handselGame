@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
-public class ElevatorModule : MonoBehaviour
+public class ElevatorModule : TerrainModule
 {
-    [SerializeField] public ElevatorModuleData data;
+    [SerializeField] public ElevatorModuleData elevatorData;
 
     // Scriptable Object Data
     private bool direction;
@@ -13,7 +14,7 @@ public class ElevatorModule : MonoBehaviour
     private float speed;
 
     // Instance Data
-    private float secondsTraveled;
+    private float secondsTraveled = 0f;
     private bool isPlayerOnBoard;
     private bool isTraveling;
 
@@ -21,6 +22,7 @@ public class ElevatorModule : MonoBehaviour
     void Start()
     {
         AssignDataVariables();
+        ElevatorTrigger.PlayerEnteredElevator += StartElevator;
     }
 
     // Update is called once per frame
@@ -34,19 +36,32 @@ public class ElevatorModule : MonoBehaviour
         ElevationControl();
     }
 
-    void AssignDataVariables()
+    private void AssignDataVariables()
     {
-        direction = data.direction;
-        heightToTravel = data.heightToTravel;
-        maxTravelSeconds = data.maxTravelSeconds;
-        speed = data.speed;
+        direction = elevatorData.direction;
+        heightToTravel = elevatorData.heightToTravel;
+        maxTravelSeconds = elevatorData.maxTravelSeconds;
+        speed = elevatorData.speed;
     }
 
-    void ElevationControl ()
+    private void ElevationControl ()
     {
+        if (isTraveling && secondsTraveled < maxTravelSeconds)
+        {
+            Vector2 pos = transform.position;
+            pos += Vector2.up * Time.deltaTime * speed;
+            transform.position = pos;
+ 
+            secondsTraveled += Time.fixedDeltaTime;
+        }
         // if player is on board && seconds traveled less than max seconds
             // move elevator
 
     }
 
+    private void StartElevator()
+    {
+        isTraveling = true;
+    }
 }
+

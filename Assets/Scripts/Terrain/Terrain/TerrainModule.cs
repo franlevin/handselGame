@@ -9,9 +9,9 @@ public class TerrainModule : MonoBehaviour
     [SerializeField] private float length;
     [SerializeField] private float height;
     private float destroyDistance = 100f;
-    [SerializeField] private GameObject mainFloor;          // Lowest floor on module for player collision
+    [SerializeField] private GameObject mainFloor;      // Lowest floor on module for player collision
     [SerializeField] private GameObject Player;
-
+    
     public enum ModuleType // your custom enumeration
     {
         Normal,

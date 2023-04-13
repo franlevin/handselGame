@@ -18,6 +18,12 @@ public class GameManager : MonoBehaviour
     // Event for shouting "ELEVATOR STATE!" to all gameObjects
     public static event Action ElevatorState;
 
+    // Event for shouting "RUNNING STATE!" to all gameObjects
+    //public static event Action RunningState;
+
+    // Event for shouting "GAME OVER STATE!" to all gameObjects
+    //public static event Action OverState;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,5 +40,6 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.Elevator;
         ElevatorState?.Invoke();
+        Debug.Log("ELEVATOR STATE BRUH");
     }
 }

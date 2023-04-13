@@ -25,7 +25,6 @@ public class TerrainGeneratorV2 : MonoBehaviour
     // For destroying generator after elevator spawns
     private bool reachedEnd = false;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +57,6 @@ public class TerrainGeneratorV2 : MonoBehaviour
     {
         if (fullLength < minTerrainLength)
         {
-
             GameObject terrainModule = CreateModule();
             modulesCreated++;
             lastModuleType = terrainModule.GetComponent<TerrainModule>().moduleType;

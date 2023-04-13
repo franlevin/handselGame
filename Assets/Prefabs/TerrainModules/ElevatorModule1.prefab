@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7476312247289831158}
   - component: {fileID: 3086372161103699000}
   - component: {fileID: 3929439897241112346}
+  - component: {fileID: 5901096550658261864}
   m_Layer: 0
   m_Name: Elevator Trigger
   m_TagString: ElevatorTrigger
@@ -71,6 +72,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &5901096550658261864
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870220961792369787}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5875892226426618449
 GameObject:
   m_ObjectHideFlags: 0
@@ -82,7 +104,7 @@ GameObject:
   - component: {fileID: 5875892226426618455}
   - component: {fileID: 5875892226426618454}
   - component: {fileID: 4376477277584671414}
-  - component: {fileID: 1875383715348549362}
+  - component: {fileID: 6680503370297831064}
   m_Layer: 0
   m_Name: ElevatorModule1
   m_TagString: Untagged
@@ -184,7 +206,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1875383715348549362
+--- !u!114 &6680503370297831064
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,12 +215,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5875892226426618449}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdcf007fc730dcb4c98bced488b170c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 60d4ba42f3594a648aad3759f71c005f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 37d7febd18f08094e8ebe473a40ff26a, type: 2}
-  length: 47.05949
+  data: {fileID: 11400000, guid: c799d9ef43388a04a8d78ee00aa4eae3, type: 2}
+  length: 0
   height: 0
   mainFloor: {fileID: 0}
   Player: {fileID: 0}
   moduleType: 2
+  elevatorData: {fileID: 11400000, guid: c32f9ca0989b6264a92b6212493c9553, type: 2}
