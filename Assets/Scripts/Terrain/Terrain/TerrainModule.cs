@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class TerrainModule : MonoBehaviour
 {
-    [SerializeField] public TerrainModuleData data;
+    //[SerializeField] public TerrainModuleData data;
     [SerializeField] private float length;
     [SerializeField] private float height;
-    private float destroyDistance = 100f;
+    private float destroyDistance = 300f;
     [SerializeField] private GameObject mainFloor;      // Lowest floor on module for player collision
-    [SerializeField] private GameObject Player;
+    [SerializeField] private GameObject player;
     
     public enum ModuleType // your custom enumeration
     {
@@ -23,26 +23,23 @@ public class TerrainModule : MonoBehaviour
 
     public static event Action<float> TerrainModuleDestroyed;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Player = GameObject.FindGameObjectWithTag("Player");
-        length = data.length;
-
-        Debug.Log("moduleType is:  " + moduleType);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Player != null) { CheckDestruction(Player); }
-    }
-
     public float GetLength()
     {
         return length;
     }
 
+    void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        length = GetComponent<BoxCollider2D>().size.x;
+
+        Debug.Log("moduleType is:  " + moduleType);
+    }
+
+    void Update()
+    {
+        if (player != null) { CheckDestruction(player); }
+    }
     private void CheckDestruction(GameObject player)
     {
         if (IsPlayerFarAway(player.transform.localPosition))
@@ -58,5 +55,8 @@ public class TerrainModule : MonoBehaviour
 
         return (distance > destroyDistance && playerX.x > transform.localPosition.x);
     }
+
+    
+
 }
 
