@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour
     };
 
     [SerializeField] public GameState gameState;
+
+    [SerializeField] private float sceneLoadWaitTime = 1f;
 
     // Event for shouting "ELEVATOR STATE!" to all gameObjects
     public static event Action ElevatorState;
@@ -30,16 +33,20 @@ public class GameManager : MonoBehaviour
         ElevatorTrigger.PlayerEnteredElevator += ActivateElevatorState;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void ActivateElevatorState()
     {
         gameState = GameState.Elevator;
         ElevatorState?.Invoke();
         Debug.Log("ELEVATOR STATE BRUH");
     }
+
+    public void ReloadScene(){
+        StartCoroutine(LoadSceneDelayed(SceneManager.GetActiveScene().buildIndex));
+    }
+
+    private IEnumerator LoadSceneDelayed(int sceneBuildIndex){
+        yield return new WaitForSeconds(sceneLoadWaitTime);
+        SceneManager.LoadScene(sceneBuildIndex);
+    }
+
 }
