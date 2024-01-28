@@ -14,8 +14,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Jumping")]
     [SerializeField] private float jumpHeight = 1f;
     [SerializeField] private float cancelRate;
+    [SerializeField] private float delayBetweenJumps = 0.5f;
     private bool jumpTriggered;
     private bool isJumping = false;
+
 
     // Components
     private Rigidbody2D rb;
@@ -29,8 +31,17 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         AutoRun();
-        Jump();
-        CancelJump();
+        ProcessJump();
+
+    }
+
+    private void ProcessJump(){
+        if (jumpTriggered)
+        {
+            Jump();
+        } else {
+            CancelJump();
+        }
     }
 
 
@@ -44,10 +55,9 @@ public class PlayerMovement : MonoBehaviour
 
     
     private void Jump(){
-        if(jumpTriggered && CanJump()){
+        if(CanJump()){
             rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
             isJumping = true;
-            
         }
     }
 
@@ -57,8 +67,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void CancelJump(){
-        if(!jumpTriggered && CanCancelJump()){
-            rb.AddForce(Vector2.down * cancelRate);
+        if(CanCancelJump()){
+            rb.AddForce(Vector2.down * cancelRate * Time.deltaTime);
         }
     }
 
@@ -69,7 +79,14 @@ public class PlayerMovement : MonoBehaviour
 
     // Detección de finalización de salto al tocar el piso
     private void OnCollisionEnter2D(Collision2D other) {
-            isJumping = !(other.gameObject.tag == "Ground");
+            if(isJumping){ // Sólo retrasamos el siguiente salto si viene justamente de un salto anterior
+                StartCoroutine(DelayNextJump(other));
+            }
+    }
+
+    private IEnumerator DelayNextJump(Collision2D other){
+        yield return new WaitForSeconds(delayBetweenJumps);
+        isJumping = !(other.gameObject.tag == "Ground");
     }
 
     // Control de presión del botón
