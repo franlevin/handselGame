@@ -1,0 +1,34 @@
+{
+    "name": "PlayerMovement",
+    "maps": [
+        {
+            "name": "DefaultGameplay",
+            "id": "d7cb2ab9-bafc-4943-bd66-4f2417098270",
+            "actions": [
+                {
+                    "name": "Jump",
+                    "type": "Value",
+                    "id": "94eb8285-bac8-4188-b9b6-39238dba6518",
+                    "expectedControlType": "Digital",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c0901626-d335-4037-9c5e-b795a0fec735",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

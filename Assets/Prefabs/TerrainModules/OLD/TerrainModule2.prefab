@@ -144,11 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdcf007fc730dcb4c98bced488b170c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: a86129b4bd7b7bf45a6fb6453156122e, type: 2}
   length: 0
   height: 0
   mainFloor: {fileID: 0}
-  Player: {fileID: 0}
+  player: {fileID: 0}
   moduleType: 0
 --- !u!1 &8085377980010950718
 GameObject:
