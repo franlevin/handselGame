@@ -48,5 +48,9 @@ public class Health : MonoBehaviour
         spriteRenderer.enabled = true;
     }
 
+    public int GetHitPoints(){
+        return hitPoints;
+    }
+
 
 }

@@ -7,12 +7,14 @@ public class CollisionHandler : MonoBehaviour
     private Health health;
     private Rigidbody2D rigidBody;
     private GameManager gameManager;
+    private UIUpdate UIUpdate;
     [SerializeField] private ParticleSystem particleEffect;
 
     void Awake(){
         rigidBody = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
         gameManager = FindObjectOfType<GameManager>();
+        UIUpdate = FindObjectOfType<UIUpdate>();
 
     }
 
@@ -20,6 +22,7 @@ public class CollisionHandler : MonoBehaviour
         if(other.tag == "Hazards"){
             health.TakeHit();
             PlayParticleEffect();
+            UIUpdate.DecreaseHealthUI();
             if(!health.IsAlive()){
                 gameManager.ReloadScene();
             }
