@@ -13,7 +13,6 @@ public class UIUpdate : MonoBehaviour
     {
         UIHealth.InitializeHealthUI();
     }
-
     public void DecreaseHealthUI(){
         UIHealth.DecreaseHealthUI();
     }

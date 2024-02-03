@@ -9,7 +9,7 @@ public class Health : MonoBehaviour
     [SerializeField] private float spriteBlinkFrecuency = 0.5f;
     private SpriteRenderer spriteRenderer;
     
-    private bool immune;
+    private bool immune = false;
 
     private void Awake() {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();

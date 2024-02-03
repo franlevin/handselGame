@@ -7,7 +7,6 @@ public class UIHealth : MonoBehaviour
 {
     
     [SerializeField] private GameObject healthIcon;
-    [SerializeField] private float iconPadding = 0f;
     private Health playerHealth;
 
     private void Awake(){
@@ -22,7 +21,10 @@ public class UIHealth : MonoBehaviour
 
     public void DecreaseHealthUI(){
         int currentHealth = transform.childCount;
-        Destroy(transform.GetChild(currentHealth -1).gameObject);
+        if(currentHealth > 0){
+            Destroy(transform.GetChild(currentHealth -1).gameObject);
+        }
+        
     }
 
     public void InitializeHealthUI(){
