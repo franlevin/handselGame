@@ -5,21 +5,9 @@ using UnityEngine;
 
 public class TerrainModule : MonoBehaviour
 {
-    //[SerializeField] public TerrainModuleData data;
-    [SerializeField] private float length;
-    [SerializeField] private float height;
-    private float destroyDistance = 300f;
-    [SerializeField] private GameObject mainFloor;      // Lowest floor on module for player collision
-    [SerializeField] private GameObject player;
-    
-    public enum ModuleType // your custom enumeration
-    {
-        Normal,
-        Void,
-        Elevator
-    };
-
-    [SerializeField] public ModuleType moduleType;
+    private GameObject player;
+    private float length;
+    private float destroyDistance = 30f;
 
     public static event Action<float> TerrainModuleDestroyed;
 
@@ -32,8 +20,6 @@ public class TerrainModule : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         length = GetComponent<BoxCollider2D>().size.x;
-
-        Debug.Log("moduleType is:  " + moduleType);
     }
 
     void Update()
@@ -55,8 +41,6 @@ public class TerrainModule : MonoBehaviour
 
         return (distance > destroyDistance && playerX.x > transform.localPosition.x);
     }
-
-    
 
 }
 

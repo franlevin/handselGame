@@ -20,12 +20,14 @@ public class CollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag == "Hazards"){
-            health.TakeHit();
-            PlayParticleEffect();
-            UIUpdate.DecreaseHealthUI();
-            if(!health.IsAlive()){
+            if(health.TakeHit()){
+                PlayParticleEffect();
+                UIUpdate.DecreaseHealthUI();
+                if(!health.IsAlive()){
                 gameManager.ReloadScene();
+                }
             }
+            
         }
     }
 

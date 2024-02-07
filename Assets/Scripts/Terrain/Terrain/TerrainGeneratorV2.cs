@@ -7,121 +7,75 @@ using static TerrainModule;
 
 public class TerrainGeneratorV2 : MonoBehaviour
 {
-    public GameObject[] terrainModules; // The array with every possible terrain module.
-    public GameObject[] elevatorModules; // The array with every possible elevator module.
-    public TerrainModuleData Data;
-
-    private float minTerrainLength = 1000f;
-    private float fullLength;
-    private float lengthReached = 0;
-    private int modulesCreated;
-    private int modulesUntilElevator = 15;
-
-    private TerrainModule.ModuleType lastModuleType;
+    [SerializeField] private GameObject startingModule;
+    [SerializeField] private GameObject[] terrainModules; // The array with every possible terrain module.
+    [SerializeField] private float minTerrainLength = 100f;
+    private float terrainLength;
+    private float lastModuleMidpoint;
+    private GameObject terrain;
     
-    // Static Event that invokes when an elevator spawns
-    public static event Action ElevatorSpawned;
-
-    // For destroying generator after elevator spawns
-    private bool reachedEnd = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Awake(){
         // Subscription to static event for decreasing length of a destroyed module in full spawned length.
         TerrainModule.TerrainModuleDestroyed += DecreaseFullLength;
-        lastModuleType = TerrainModule.ModuleType.Void;
+        terrain = GameObject.FindGameObjectWithTag("Terrain");
     }
 
-    // Update is called once per frame
+    void Start()
+    {
+        StartTerrain();    
+    }
+
     void Update()
     {
         AddTerrain();
-        Debug.Log("modulesCreated is: " + modulesCreated);
-        if (reachedEnd) { Destroy(gameObject); }
     }
 
-    private void StartTerrain()
-    {
-        
+    // Initialize Terrain using the module asigned in the inspector
+    private void StartTerrain(){
+        GameObject instantiatedStartingModule = Instantiate(startingModule, terrain.transform);
+        lastModuleMidpoint = instantiatedStartingModule.GetComponent<TerrainModule>().GetLength() / 2;
+        UpdateTerrainLength(instantiatedStartingModule);
     }
 
-    private void DecreaseFullLength (float length)
-    {
-        fullLength -= length;
-        //Debug.Log("Decrece la length");
-    }
-
-    private void AddTerrain()
-    {
-        if (fullLength < minTerrainLength)
-        {
+    // Add a new module until the minTerrainLength is covered
+    private void AddTerrain(){
+        if(terrainLength < minTerrainLength){
             GameObject terrainModule = GetNextModule(); // Get a valid random prefab
             terrainModule = InstantiateNextModule(terrainModule); // Replace the prefab with the actual intantiated GameObject
-            UpdateLengthRelatedVariables(terrainModule);
+            UpdateTerrainLength(terrainModule);
         }
     }
 
-    private void UpdateLengthRelatedVariables(GameObject terrainModule)
-    {
-        // Adds spawned block's length to "fullLength" & "lengthReached"
+    private GameObject GetNextModule(){
+        int randomIndex = UnityEngine.Random.Range(0, terrainModules.Length);
+        return terrainModules[randomIndex];
+    }
+
+    private GameObject InstantiateNextModule(GameObject nextModule){
+
+        // Instantiates a block and moves it to the end of the terrain
+        nextModule = Instantiate(nextModule, terrain.transform);
+        
+        // Using midpoints for compatibility between different-length modules
+        float nextModuleMidpoint = nextModule.GetComponent<TerrainModule>().GetLength() / 2;
+        float nextBlockPosition = lastModuleMidpoint + nextModuleMidpoint;
+        nextModule.transform.position = new Vector3(nextBlockPosition, terrain.transform.position.y);
+
+        lastModuleMidpoint = nextBlockPosition + nextModuleMidpoint;
+        
+        return nextModule;
+    }
+
+    private void UpdateTerrainLength(GameObject terrainModule){
+        // Adds spawned block's length to terrainLength
         float moduleLength = terrainModule.GetComponent<TerrainModule>().GetLength();
-        fullLength += moduleLength;
-        lengthReached += moduleLength;
+        terrainLength += moduleLength;
     }
 
-    private GameObject InstantiateNextModule(GameObject terrainModule)
-    {
-        // Determines the position for a new block and instantiates it
-        float floorPosition = terrainModule.transform.localScale.y / 2 * -1;
-        Vector3 blockPosition = new Vector3(lengthReached, floorPosition, 0);
-        return Instantiate(terrainModule, blockPosition, Quaternion.identity);
+    
+    
+    private void DecreaseFullLength (float length){
+        terrainLength -= length;
     }
 
-    private GameObject GetNextModule()
-    {
-        GameObject terrainModule = CreateNewRandomModule();
-        modulesCreated++;
-        lastModuleType = terrainModule.GetComponent<TerrainModule>().moduleType;
-        return terrainModule;
-    }
-
-    private GameObject CreateNewRandomModule()
-    {
-        GameObject module;
-        TerrainModule.ModuleType moduleType;
-
-        if (modulesCreated < modulesUntilElevator)
-        {
-            int randomIndex = UnityEngine.Random.Range(0, terrainModules.Length);
-            module = terrainModules[randomIndex];
-            moduleType = module.GetComponent<TerrainModule>().moduleType;
-        }
-
-        else // Spawns Elevator
-        {
-            int randomIndex = UnityEngine.Random.Range(0, elevatorModules.Length);
-            module = elevatorModules[randomIndex];
-            moduleType = TerrainModule.ModuleType.Normal;
-            reachedEnd = true;
-        } 
-
-        // New random TerrainModule from array
-        bool willRepeatVoid = (lastModuleType == TerrainModule.ModuleType.Void && moduleType == TerrainModule.ModuleType.Void);
-        bool willSpawnVoidInStartingLane = (modulesCreated < 10 && moduleType == TerrainModule.ModuleType.Void);
-
-        if (!willRepeatVoid && !willSpawnVoidInStartingLane ) return module; else return CreateNewRandomModule();
-    }
-
-    private void OnDisable()
-    {
-        TerrainModule.TerrainModuleDestroyed -= DecreaseFullLength;
-        //Destroy(gameObject);
-    }
-
-    private void OnDestroy()
-    {
-        TerrainModule.TerrainModuleDestroyed -= DecreaseFullLength;
-    }
 }

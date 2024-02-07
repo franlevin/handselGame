@@ -15,12 +15,13 @@ public class Health : MonoBehaviour
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
     
-    public void TakeHit(){
-        if(!immune){
+    public bool TakeHit(){
+        bool damageTaken = !immune;
+        if(damageTaken){
             hitPoints--;
             StartCoroutine(TriggerImmunity());
             StartCoroutine(MakeSpriteBlink());
-        }
+        } return damageTaken;
     }
 
     private IEnumerator TriggerImmunity(){

@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float acceleration = 0f;
 
     [Header("Jumping")]
-    [SerializeField] private float jumpHeight = 1f;
+    [SerializeField] private float jumpForce = 1f;
     [SerializeField] private float cancelRate;
     [SerializeField] private float delayBetweenJumps = 0.5f;
     private bool jumpTriggered;
@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void Jump(){
         if(CanJump()){
-            rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isJumping = true;
         }
     }

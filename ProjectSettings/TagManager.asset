@@ -8,6 +8,7 @@ TagManager:
   - ElevatorTrigger
   - Ground
   - Hazards
+  - Terrain
   layers:
   - Default
   - TransparentFX

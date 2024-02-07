@@ -4990,7 +4990,7 @@ Rigidbody2D:
   m_Mass: 0.0851061
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -5079,10 +5079,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ec1494d3e879b338ae564a4b7fdf41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runningSpeed: 120
+  runningSpeed: 150
   acceleration: 0
-  jumpHeight: 0.5
-  cancelRate: 100
+  jumpForce: 0.8
+  cancelRate: 200
   delayBetweenJumps: 0.1
 --- !u!114 &504071068364110314
 MonoBehaviour:
@@ -5097,7 +5097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 3
-  immunityTime: 1
+  immunityTime: 2
   spriteBlinkFrecuency: 0.1
 --- !u!114 &7338317117396321999
 MonoBehaviour:
