@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
 
 public class CollisionHandler : MonoBehaviour
 {
@@ -10,12 +12,13 @@ public class CollisionHandler : MonoBehaviour
     private UIUpdate UIUpdate;
     [SerializeField] private ParticleSystem particleEffect;
 
+    public static event Action PlayerDeath;
+
     void Awake(){
         rigidBody = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
         gameManager = FindObjectOfType<GameManager>();
         UIUpdate = FindObjectOfType<UIUpdate>();
-
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -24,7 +27,8 @@ public class CollisionHandler : MonoBehaviour
                 PlayParticleEffect();
                 UIUpdate.DecreaseHealthUI();
                 if(!health.IsAlive()){
-                gameManager.ReloadScene();
+                    gameManager.ReloadScene();
+                    PlayerDeath?.Invoke();
                 }
             }
             
