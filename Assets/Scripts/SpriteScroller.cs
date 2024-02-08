@@ -6,19 +6,28 @@ using UnityEngine;
 public class SpriteScroller : MonoBehaviour
 {
     [SerializeField] private Vector2 moveSpeed;
-    Vector2 offset;
-    Material material;
+    private Vector2 offset;
+    private Material material;
+    private bool scroll = true;
 
     void Awake()
     {
         material = GetComponent<SpriteRenderer>().material;
+        CollisionHandler.PlayerDeath += StopScroll;
     }
 
     // Update is called once per frame
     void Update()
     {
-        offset = moveSpeed * Time.deltaTime;
-        material.mainTextureOffset += offset;
+        if(scroll){
+            offset = moveSpeed * Time.deltaTime;
+            material.mainTextureOffset += offset;
+        }
+        
+    }
+
+    private void StopScroll(){
+        scroll = false;
     }
 
 }
