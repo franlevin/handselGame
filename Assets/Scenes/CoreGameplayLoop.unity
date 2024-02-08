@@ -857,7 +857,7 @@ PrefabInstance:
       objectReference: {fileID: 2642136520718284980, guid: 5d5eb053f005af04585b39407e15149d, type: 3}
     - target: {fileID: 6013485779895667999, guid: a20a83b4003cd8349a0b08fc165f5161, type: 3}
       propertyPath: terrainModules.Array.size
-      value: 5
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6013485779895667999, guid: a20a83b4003cd8349a0b08fc165f5161, type: 3}
       propertyPath: elevatorModules.Array.size
@@ -884,9 +884,37 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2642136520718284980, guid: beca8e7cf0ceca280914120c4f2d255b, type: 3}
     - target: {fileID: 6013485779895667999, guid: a20a83b4003cd8349a0b08fc165f5161, type: 3}
+      propertyPath: terrainModules.Array.data[5]
+      value: 
+      objectReference: {fileID: 2642136520718284980, guid: 091dbb65252d17482a69689efcf3e5a4, type: 3}
+    - target: {fileID: 6013485779895667999, guid: a20a83b4003cd8349a0b08fc165f5161, type: 3}
+      propertyPath: terrainModules.Array.data[6]
+      value: 
+      objectReference: {fileID: 2642136520718284980, guid: 9f5ccf55c4f8a77e588d408d1c0e7af2, type: 3}
+    - target: {fileID: 6013485779895667999, guid: a20a83b4003cd8349a0b08fc165f5161, type: 3}
+      propertyPath: terrainModules.Array.data[7]
+      value: 
+      objectReference: {fileID: 2642136520718284980, guid: 56927d332b0fefcd38415d4ea98a4230, type: 3}
+    - target: {fileID: 6013485779895667999, guid: a20a83b4003cd8349a0b08fc165f5161, type: 3}
+      propertyPath: terrainModules.Array.data[8]
+      value: 
+      objectReference: {fileID: 2642136520718284980, guid: fb153f164a1d4398b8c548dacf0b6c79, type: 3}
+    - target: {fileID: 6013485779895667999, guid: a20a83b4003cd8349a0b08fc165f5161, type: 3}
+      propertyPath: terrainModules.Array.data[9]
+      value: 
+      objectReference: {fileID: 2642136520718284980, guid: 1807e5d3add805133bf17461497f116f, type: 3}
+    - target: {fileID: 6013485779895667999, guid: a20a83b4003cd8349a0b08fc165f5161, type: 3}
       propertyPath: elevatorModules.Array.data[0]
       value: 
       objectReference: {fileID: 5875892226426618449, guid: 76ba6fe7d7c162e48bf42acf5ae5b3d2, type: 3}
+    - target: {fileID: 6013485779895667999, guid: a20a83b4003cd8349a0b08fc165f5161, type: 3}
+      propertyPath: terrainModules.Array.data[10]
+      value: 
+      objectReference: {fileID: 2642136520718284980, guid: e3df1c127509cfda29b106cf43483b34, type: 3}
+    - target: {fileID: 6013485779895667999, guid: a20a83b4003cd8349a0b08fc165f5161, type: 3}
+      propertyPath: terrainModules.Array.data[11]
+      value: 
+      objectReference: {fileID: 2642136520718284980, guid: eb2fc05c1a50d1625a6dbe301c9e99d3, type: 3}
     - target: {fileID: 6013485779895668064, guid: a20a83b4003cd8349a0b08fc165f5161, type: 3}
       propertyPath: m_RootOrder
       value: 1
