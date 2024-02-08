@@ -19,4 +19,8 @@ public class ScoreKeeper : MonoBehaviour
         return score;
     }
 
+    public void IncreaseScore(float points){
+        score += points;
+    }
+
 }

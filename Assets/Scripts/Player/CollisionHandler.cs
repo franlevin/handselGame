@@ -24,17 +24,24 @@ public class CollisionHandler : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.tag == "Hazards"){
-            if(health.TakeHit()){
-                PlayParticleEffect();
-                UIUpdate.DecreaseHealthUI();
-                if(!health.IsAlive()){
-                    //gameManager.ReloadScene();
-                    PlayerDeath?.Invoke();
-                }
-            }
+        switch(other.tag){
             
+            case "Hazards":
+                if(health.TakeHit()){
+                    PlayParticleEffect();
+                    UIUpdate.DecreaseHealthUI();
+                    if(!health.IsAlive()){
+                        //gameManager.ReloadScene();
+                        PlayerDeath?.Invoke();
+                    }
+                }
+            break;
+
+            case "Void":
+                gameManager.ReloadScene();
+            break;
         }
+            
     }
 
     private void PlayParticleEffect(){
