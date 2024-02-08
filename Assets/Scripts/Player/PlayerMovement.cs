@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private bool jumpTriggered;
     private bool isJumping = false;
 
+    private Health health;
 
     // Components
     private Rigidbody2D rb;
@@ -25,14 +26,17 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        health = GetComponent<Health>();
     }
 
     // FixedUpdate para actualizaciones de física
     private void FixedUpdate()
     {
-        AutoRun();
-        ProcessJump();
-
+        if (health.IsAlive())
+        {
+            AutoRun();
+            ProcessJump();
+        }
     }
 
     private void ProcessJump(){
