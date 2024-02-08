@@ -10,6 +10,7 @@ public class CollisionHandler : MonoBehaviour
     private Rigidbody2D rigidBody;
     private GameManager gameManager;
     private UIUpdate UIUpdate;
+    private AnimationManager animationManager;
     [SerializeField] private ParticleSystem particleEffect;
 
     public static event Action PlayerDeath;
@@ -19,6 +20,7 @@ public class CollisionHandler : MonoBehaviour
         health = GetComponent<Health>();
         gameManager = FindObjectOfType<GameManager>();
         UIUpdate = FindObjectOfType<UIUpdate>();
+        animationManager = FindObjectOfType<AnimationManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -27,7 +29,7 @@ public class CollisionHandler : MonoBehaviour
                 PlayParticleEffect();
                 UIUpdate.DecreaseHealthUI();
                 if(!health.IsAlive()){
-                    gameManager.ReloadScene();
+                    //gameManager.ReloadScene();
                     PlayerDeath?.Invoke();
                 }
             }
