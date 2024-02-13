@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class UIScore : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class UIScore : MonoBehaviour
     private TextMeshProUGUI scoreText;
     private TextMeshProUGUI scoreUpdateNotification;
     [SerializeField] private float scoreUpdateDisplayTime = 1;
+    private bool isDisplayingUpdateNotification = false;
+    private int updateNotificationValueBeingDisplayed = 0;
 
     private void Awake() {
         scoreKeeper = FindObjectOfType<ScoreKeeper>();
@@ -26,12 +29,23 @@ public class UIScore : MonoBehaviour
     }
 
     public void NotifyScoreIncrease(int points){
+        if(isDisplayingUpdateNotification){
+            StopCoroutine(ScoreIncreaseNotificationDisplayDelay(points));
+        }
         StartCoroutine(ScoreIncreaseNotificationDisplayDelay(points));
+        
     }
 
     private IEnumerator ScoreIncreaseNotificationDisplayDelay(int points){
+        if(isDisplayingUpdateNotification){
+            points += updateNotificationValueBeingDisplayed;
+        }
         scoreUpdateNotification.text = "+" + points;
+        updateNotificationValueBeingDisplayed = points;
+        isDisplayingUpdateNotification = true;
         yield return new WaitForSeconds(scoreUpdateDisplayTime);
         scoreUpdateNotification.text = "";
+        isDisplayingUpdateNotification = false;
+        updateNotificationValueBeingDisplayed = 0;
     }
 }
