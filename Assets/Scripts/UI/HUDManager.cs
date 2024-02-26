@@ -24,8 +24,8 @@ public class HUDManager : MonoBehaviour
     {
        healthUI = FindObjectOfType<UIHealth>();
        scoreUI = FindObjectOfType<UIScore>();
-        
-    }   
+       gameManager = FindObjectOfType<GameManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
